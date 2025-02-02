@@ -3,7 +3,7 @@ import { fetchCampers, fetchCamperById } from "./operations";
 
 const initialState = {
   campers: [],
-  camper: null,
+  currentCamper: null,
   isLoading: false,
   error: null,
 };
@@ -33,7 +33,7 @@ const campersSlice = createSlice({
       })
       .addCase(fetchCamperById.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.camper = action.payload;
+        state.currentCamper = action.payload;
       })
       .addCase(fetchCamperById.rejected, (state, action) => {
         state.isLoading = false;

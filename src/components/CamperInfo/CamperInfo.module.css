@@ -4,6 +4,18 @@
   gap: 8px;
 }
 
+.detailed_info {
+  gap: 0;
+}
+
+.detailed_info > :nth-child(1) {
+  margin-bottom: 8px;
+}
+
+.detailed_info > :nth-child(2) {
+  margin-bottom: 16px;
+}
+
 .info_title {
   display: flex;
   justify-content: space-between;

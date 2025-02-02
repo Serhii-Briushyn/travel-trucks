@@ -67,11 +67,11 @@ export const equipment = [
 
 export const details = [
   { key: "form", label: "Form" },
-  { key: "length", label: "Length", unit: "m" },
-  { key: "width", label: "Width", unit: "m" },
-  { key: "height", label: "Height", unit: "m" },
-  { key: "tank", label: "Tank", unit: "l" },
-  { key: "consumption", label: "Consumption", unit: "l/100km" },
+  { key: "length", label: "Length" },
+  { key: "width", label: "Width" },
+  { key: "height", label: "Height" },
+  { key: "tank", label: "Tank" },
+  { key: "consumption", label: "Consumption" },
 ];
 
 export const vehicleType = [
