@@ -6,7 +6,6 @@ import css from "./CamperReviews.module.css";
 
 const CamperReviews = () => {
   const camper = useSelector(selectCurrentCamper);
-  console.log(camper);
 
   if (!camper || !camper.reviews || camper.reviews.length === 0) {
     return <p className={css.no_reviews}>No reviews available</p>;
