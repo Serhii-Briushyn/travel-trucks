@@ -1,9 +1,12 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import css from "./BookingForm.module.css";
-import { CiCalendar } from "react-icons/ci";
 import { useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import * as Yup from "yup";
+
 import ModalNotification from "../ModalNotification/ModalNotification";
+
+import css from "./BookingForm.module.css";
 
 const BookingForm = () => {
   const initialValues = {
@@ -19,16 +22,17 @@ const BookingForm = () => {
       .max(50, "Too long!")
       .required("Required"),
     email: Yup.string().email("Invalid email format").required("Required"),
-    bookingDate: Yup.date().required("Required"),
+    bookingDate: Yup.string().required("Required"),
     comment: Yup.string().max(300, "Max 300 characters"),
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (values, { resetForm }) => {
-    console.log("Form submitted:", values);
     setIsSubmitted(true);
-    resetForm();
+    setTimeout(() => {
+      resetForm();
+    }, 500);
   };
 
   return (
@@ -43,7 +47,7 @@ const BookingForm = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, values, setFieldValue }) => (
           <Form className={css.form}>
             <div className={css.field_wrapper}>
               <Field
@@ -70,13 +74,25 @@ const BookingForm = () => {
             </div>
 
             <div className={css.field_wrapper}>
-              <Field
-                type="text"
-                name="bookingDate"
-                placeholder="Booking date*"
+              <DatePicker
+                selected={
+                  values.bookingDate
+                    ? new Date(
+                        values.bookingDate.split(".").reverse().join("-")
+                      )
+                    : null
+                }
+                onChange={(date) =>
+                  setFieldValue(
+                    "bookingDate",
+                    date ? date.toLocaleDateString("uk-UA") : ""
+                  )
+                }
+                dateFormat="dd.MM.yyyy"
+                placeholderText="Booking date*"
                 className={css.input}
+                calendarClassName="custom-calendar"
               />
-              <CiCalendar className={css.calendar_icon} />
               <ErrorMessage
                 name="bookingDate"
                 component="div"
