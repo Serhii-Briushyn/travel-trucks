@@ -1,7 +1,7 @@
 body {
   font-family: "Inter", sans-serif;
-  background-color: #fff;
-  color: #101828;
+  background-color: var(--color-white);
+  color: var(--color-main);
   margin: 0;
   --color-main: #101828;
   --color-text: #475467;
