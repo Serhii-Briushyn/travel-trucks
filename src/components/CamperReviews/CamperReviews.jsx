@@ -22,7 +22,7 @@ const CamperReviews = () => {
                 <p className={css.reviewer_name}>{reviewer_name}</p>
                 <div className={css.rating}>
                   {[...Array(5)].map((_, i) => (
-                    <svg key={i} className={css.starIcon}>
+                    <svg key={i} className={css.icon}>
                       <use
                         xlinkHref={`/icons-sprite.svg#${
                           i < reviewer_rating

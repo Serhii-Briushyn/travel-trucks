@@ -64,7 +64,8 @@
 }
 
 .location,
-.rating {
+.rating_link,
+.rating_text {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -79,7 +80,7 @@
   }
 }
 
-.rating::after {
+.rating_link::after {
   content: "";
   position: absolute;
   left: 0;
@@ -92,6 +93,6 @@
   transition: var(--transition);
 }
 
-.rating:hover::after {
+.rating_link:hover::after {
   transform: scaleX(1);
 }

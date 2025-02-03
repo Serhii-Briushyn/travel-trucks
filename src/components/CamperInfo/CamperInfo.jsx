@@ -32,17 +32,26 @@ const CamperInfo = ({ camper, isDetailed = false }) => {
       </div>
 
       <div className={css.info_details}>
-        <a
-          href={`/catalog/${camper.id}/reviews`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={css.rating}
-        >
-          <svg>
-            <use xlinkHref="/icons-sprite.svg#icon-star-yellow"></use>
-          </svg>
-          {camper.rating} ({camper.reviews.length} Reviews)
-        </a>
+        {isDetailed ? (
+          <span className={css.rating_text}>
+            <svg>
+              <use xlinkHref="/icons-sprite.svg#icon-star-yellow"></use>
+            </svg>
+            {camper.rating} ({camper.reviews.length} Reviews)
+          </span>
+        ) : (
+          <a
+            href={`/catalog/${camper.id}/reviews`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={css.rating_link}
+          >
+            <svg>
+              <use xlinkHref="/icons-sprite.svg#icon-star-yellow"></use>
+            </svg>
+            {camper.rating} ({camper.reviews.length} Reviews)
+          </a>
+        )}
 
         <span className={css.location}>
           <svg>
