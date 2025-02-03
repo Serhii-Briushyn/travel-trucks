@@ -3,6 +3,17 @@ body {
   background-color: #fff;
   color: #101828;
   margin: 0;
+  --color-main: #101828;
+  --color-text: #475467;
+  --color-gray: #6c717b;
+  --color-button: #e44848;
+  --color-button-hover: #d84343;
+  --color-yellow: #ffc531;
+  --color-gray-light: #dadde1;
+  --color-inputs: #f2f4f7;
+  --color-badges: #f7f7f7;
+  --color-white: #ffffff;
+  --transition: all 0.3s ease;
 }
 
 ul {
