@@ -1,7 +1,8 @@
 .camper_page {
   display: flex;
   gap: 64px;
-  width: 100%;
+  width: 1440px;
+  margin: 0 auto;
   padding: 48px 64px 52px 64px;
 }
 
