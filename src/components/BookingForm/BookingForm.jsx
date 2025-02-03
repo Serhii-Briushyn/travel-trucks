@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { enGB } from "date-fns/locale";
 import * as Yup from "yup";
 
 import ModalNotification from "../ModalNotification/ModalNotification";
 
+import "./datepicker.css";
 import css from "./BookingForm.module.css";
 
 const BookingForm = () => {
@@ -15,6 +17,8 @@ const BookingForm = () => {
     bookingDate: "",
     comment: "",
   };
+
+  registerLocale("enGB", enGB);
 
   const validationSchema = Yup.object({
     name: Yup.string()
@@ -34,7 +38,6 @@ const BookingForm = () => {
       resetForm();
     }, 500);
   };
-
   return (
     <div className={css.form_container}>
       <h2 className={css.title}>Book your campervan now</h2>
@@ -75,23 +78,19 @@ const BookingForm = () => {
 
             <div className={css.field_wrapper}>
               <DatePicker
+                locale="enGB"
                 selected={
-                  values.bookingDate
-                    ? new Date(
-                        values.bookingDate.split(".").reverse().join("-")
-                      )
-                    : null
+                  values.bookingDate ? new Date(values.bookingDate) : null
                 }
                 onChange={(date) =>
-                  setFieldValue(
-                    "bookingDate",
-                    date ? date.toLocaleDateString("uk-UA") : ""
-                  )
+                  setFieldValue("bookingDate", date ? date.toISOString() : "")
                 }
                 dateFormat="dd.MM.yyyy"
                 placeholderText="Booking date*"
                 className={css.input}
-                calendarClassName="custom-calendar"
+                calendarStartDay={1}
+                formatWeekDay={(day) => day.toUpperCase().slice(0, 3)}
+                minDate={new Date()}
               />
               <ErrorMessage
                 name="bookingDate"
