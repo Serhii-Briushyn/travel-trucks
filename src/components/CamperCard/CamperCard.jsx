@@ -8,7 +8,7 @@ import css from "./CamperCard.module.css";
 
 const CamperCard = ({ camper }) => {
   return (
-    <div className={css.card}>
+    <li className={css.card_list}>
       <CamperGallery images={camper.gallery} isPreview={true} />
       <div className={css.card_content}>
         <CamperInfo camper={camper} detailed={false} />
@@ -16,7 +16,7 @@ const CamperCard = ({ camper }) => {
         <CamperFeatures camper={camper} />
         <ShowMoreButton camperId={camper.id} />
       </div>
-    </div>
+    </li>
   );
 };
 

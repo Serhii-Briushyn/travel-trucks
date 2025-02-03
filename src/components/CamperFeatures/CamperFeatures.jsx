@@ -14,7 +14,7 @@ const CamperFeatures = ({ camper: propCamper, detailed: propDetailed }) => {
 
   return (
     <div className={clsx(css.features, detailed && css.features_detailed)}>
-      <div className={css.main}>
+      <ul className={css.features_list}>
         {features.map(({ key, icon, hasFill }) => {
           let label = features.find((item) => item.key === key)?.label;
 
@@ -30,16 +30,16 @@ const CamperFeatures = ({ camper: propCamper, detailed: propDetailed }) => {
 
           return (
             camper[key] && (
-              <span key={key} className={css.feature_item}>
+              <li key={key} className={css.features_item}>
                 <svg className={`${css.icon} ${hasFill ? css.fill : ""}`}>
                   <use xlinkHref={`/icons-sprite.svg#${icon}`} />
                 </svg>
                 {label}
-              </span>
+              </li>
             )
           );
         })}
-      </div>
+      </ul>
 
       {detailed && (
         <div className={css.details}>

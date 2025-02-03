@@ -8,13 +8,13 @@
   height: 100%;
 }
 
-.main {
+.features_list {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.feature_item {
+.features_item {
   font-weight: 500;
   font-size: 16px;
   line-height: 1.5;

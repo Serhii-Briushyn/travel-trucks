@@ -18,11 +18,11 @@ const CamperList = () => {
 
   return (
     <section className={css.camper_section}>
-      <div className={css.camper_list}>
+      <ul className={css.camper_list}>
         {campers.slice(0, visibleCount).map((camper) => (
           <CamperCard key={camper.id} camper={camper} />
         ))}
-      </div>
+      </ul>
 
       {visibleCount < campers.length && <LoadMoreBtn onClick={loadMore} />}
     </section>

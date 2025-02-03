@@ -18,7 +18,7 @@ const CamperGallery = ({ images, isPreview = false }) => {
   }));
 
   return (
-    <section className={css.camper_gallery}>
+    <div className={css.camper_gallery}>
       {isPreview ? (
         <img
           src={slides[0]?.thumbnail || "/default-image.jpg"}
@@ -48,7 +48,7 @@ const CamperGallery = ({ images, isPreview = false }) => {
         index={currentIndex}
         slides={slides}
       />
-    </section>
+    </div>
   );
 };
 
