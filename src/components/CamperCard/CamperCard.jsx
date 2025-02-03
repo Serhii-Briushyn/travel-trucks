@@ -8,7 +8,7 @@ import css from "./CamperCard.module.css";
 
 const CamperCard = ({ camper }) => {
   return (
-    <li className={css.card_list}>
+    <li className={css.card_item}>
       <CamperGallery images={camper.gallery} isPreview={true} />
       <div className={css.card_content}>
         <CamperInfo camper={camper} detailed={false} />

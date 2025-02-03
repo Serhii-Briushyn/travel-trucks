@@ -6,12 +6,12 @@ import { travelTrucksApi } from "../../services/api";
 
 export const fetchCampers = createAsyncThunk(
   "campers/fetchFiltered",
-  async (_, thunkAPI) => {
+  async ({ page = 1, limit = 4 }, thunkAPI) => {
     try {
       const state = thunkAPI.getState();
       const filters = state.filters;
 
-      let queryParams = new URLSearchParams();
+      let queryParams = new URLSearchParams({ page, limit });
 
       if (filters.location) queryParams.append("location", filters.location);
       if (filters.vehicleType) queryParams.append("form", filters.vehicleType);

@@ -17,7 +17,7 @@ const CamperPage = () => {
   const error = useSelector(selectError);
 
   useEffect(() => {
-    dispatch(fetchCampers());
+    dispatch(fetchCampers({ page: 1, limit: 4 }));
   }, [dispatch]);
 
   return (

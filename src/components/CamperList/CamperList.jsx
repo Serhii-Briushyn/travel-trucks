@@ -1,30 +1,38 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { selectCampers } from "../../redux/campers/selectors";
+import { fetchCampers } from "../../redux/campers/operations";
+import {
+  selectCampers,
+  selectIsLoading,
+} from "../../redux/campers/selectors";
 
 import CamperCard from "../CamperCard/CamperCard";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 
 import css from "./CamperList.module.css";
 
+
 const CamperList = () => {
+  const dispatch = useDispatch();
   const campers = useSelector(selectCampers);
-  const [visibleCount, setVisibleCount] = useState(4);
+  const isLoading = useSelector(selectIsLoading);
 
   const loadMore = () => {
-    setVisibleCount((prev) => prev + 4);
+    const currentPage = Math.ceil(campers.length / 4) + 1;
+    dispatch(fetchCampers({ page: currentPage, limit: 4 }));
   };
 
   return (
     <section className={css.camper_section}>
       <ul className={css.camper_list}>
-        {campers.slice(0, visibleCount).map((camper) => (
+        {campers.map((camper) => (
           <CamperCard key={camper.id} camper={camper} />
         ))}
       </ul>
 
-      {visibleCount < campers.length && <LoadMoreBtn onClick={loadMore} />}
+      {campers.length % 4 === 0 && campers.length > 0 && !isLoading && (
+        <LoadMoreBtn onClick={loadMore} />
+      )}
     </section>
   );
 };

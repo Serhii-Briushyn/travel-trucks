@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchCampers } from "../../redux/campers/operations";
 import { selectFilters } from "../../redux/filters/selectors";
+import { resetCampers } from "../../redux/campers/slice";
 
 import Filters from "../Filters/Filters";
 import Location from "../Location/Location";
@@ -13,7 +14,8 @@ const SearchBar = () => {
   const filters = useSelector(selectFilters);
 
   const handleSearch = () => {
-    dispatch(fetchCampers(filters));
+    dispatch(resetCampers());
+    dispatch(fetchCampers({ ...filters, page: 1, limit: 4 }));
   };
 
   return (
