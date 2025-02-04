@@ -1,52 +1,37 @@
-import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
-
-import { selectFilters } from "../../redux/filters/selectors";
-import { setFilters } from "../../redux/filters/slice";
 
 import { engineTypes, equipment, vehicleType } from "../../constants/constants";
 
 import css from "./Filters.module.css";
 
-const Filters = () => {
-  const dispatch = useDispatch();
-  const filters = useSelector(selectFilters);
-
+const Filters = ({ tempFilters, setTempFilters }) => {
   const handleVehicleTypeChange = (type) => {
-    dispatch(
-      setFilters({
-        ...filters,
-        vehicleType: filters.vehicleType === type ? null : type,
-      })
-    );
+    setTempFilters((prev) => ({
+      ...prev,
+      vehicleType: prev.vehicleType === type ? "" : type,
+    }));
   };
 
   const handleEngineChange = (type) => {
-    dispatch(
-      setFilters({
-        ...filters,
-        engine: filters.engine === type ? "" : type,
-      })
-    );
+    setTempFilters((prev) => ({
+      ...prev,
+      engine: prev.engine === type ? "" : type,
+    }));
   };
 
   const handleEquipmentChange = (key) => {
     if (key === "transmission") {
-      dispatch(
-        setFilters({
-          ...filters,
-          transmission: filters.transmission === "automatic" ? "" : "automatic",
-        })
-      );
+      setTempFilters((prev) => ({
+        ...prev,
+        transmission: prev.transmission === "automatic" ? "" : "automatic",
+      }));
     } else {
-      dispatch(
-        setFilters({
-          ...filters,
-          equipment: filters.equipment.includes(key)
-            ? filters.equipment.filter((item) => item !== key)
-            : [...filters.equipment, key],
-        })
-      );
+      setTempFilters((prev) => ({
+        ...prev,
+        equipment: prev.equipment.includes(key)
+          ? prev.equipment.filter((item) => item !== key)
+          : [...prev.equipment, key],
+      }));
     }
   };
 
@@ -63,8 +48,8 @@ const Filters = () => {
               className={clsx(
                 css.filter_button,
                 key === "transmission"
-                  ? filters.transmission === "automatic" && css.active
-                  : filters.equipment.includes(key) && css.active
+                  ? tempFilters.transmission === "automatic" && css.active
+                  : tempFilters.equipment.includes(key) && css.active
               )}
               onClick={() => handleEquipmentChange(key)}
             >
@@ -88,7 +73,7 @@ const Filters = () => {
               key={key}
               className={clsx(
                 css.filter_button,
-                filters.engine === key && css.active
+                tempFilters.engine === key && css.active
               )}
               onClick={() => handleEngineChange(key)}
             >
@@ -112,7 +97,7 @@ const Filters = () => {
               key={key}
               className={clsx(
                 css.filter_button,
-                filters.vehicleType === key && css.active
+                tempFilters.vehicleType === key && css.active
               )}
               onClick={() => handleVehicleTypeChange(key)}
             >

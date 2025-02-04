@@ -13,7 +13,10 @@ export const fetchCampers = createAsyncThunk(
 
       let queryParams = new URLSearchParams({ page, limit });
 
-      if (filters.location) queryParams.append("location", filters.location);
+      if (filters.location) {
+        const city = filters.location.split(/[,\s]+/)[0];
+        queryParams.append("location", city);
+      }
       if (filters.vehicleType) queryParams.append("form", filters.vehicleType);
       if (filters.transmission === "automatic")
         queryParams.append("transmission", "automatic");

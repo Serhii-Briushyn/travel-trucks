@@ -1,20 +1,24 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { selectLocation } from "../../redux/filters/selectors";
-import { setFilters } from "../../redux/filters/slice";
 
 import css from "./Location.module.css";
 
-const Location = () => {
-  const dispatch = useDispatch();
+const Location = ({ tempFilters, setTempFilters }) => {
   const reduxLocation = useSelector(selectLocation);
-  const [inputValue, setInputValue] = useState(reduxLocation || "");
+  const [inputValue, setInputValue] = useState(
+    tempFilters.location || reduxLocation || ""
+  );
 
   const handleInputChange = (e) => {
-    const city = e.target.value.split(/[,\s]+/)[0];
     setInputValue(e.target.value);
-    dispatch(setFilters({ location: city }));
+
+    if (e.target.value.trim() === "") {
+      setTempFilters((prev) => ({ ...prev, location: "" }));
+    } else {
+      setTempFilters((prev) => ({ ...prev, location: e.target.value }));
+    }
   };
 
   return (
@@ -23,7 +27,7 @@ const Location = () => {
         Location
       </label>
       <div className={css.input_container}>
-        <svg className={`${css.icon} ${location ? css.icon_active : ""}`}>
+        <svg className={`${css.icon} ${inputValue ? css.icon_active : ""}`}>
           <use xlinkHref="/icons-sprite.svg#icon-map"></use>
         </svg>
         <input
