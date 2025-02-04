@@ -1,18 +1,29 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { selectLocation } from "../../redux/filters/selectors";
+import { selectError } from "../../redux/campers/selectors";
+import { setFilters } from "../../redux/filters/slice";
 
 import citiesData from "../../data/cities.json";
 
 import css from "./Location.module.css";
 
 const Location = ({ tempFilters, setTempFilters }) => {
+  const dispatch = useDispatch();
   const reduxLocation = useSelector(selectLocation);
+  const error = useSelector(selectError);
   const [inputValue, setInputValue] = useState(
     tempFilters.location || reduxLocation || ""
   );
   const [suggestions, setSuggestions] = useState([]);
+
+  useEffect(() => {
+    if (error) {
+      setInputValue("");
+      dispatch(setFilters({ location: "" }));
+    }
+  }, [error, dispatch]);
 
   const filterCities = (query) => {
     if (!query.trim()) {
