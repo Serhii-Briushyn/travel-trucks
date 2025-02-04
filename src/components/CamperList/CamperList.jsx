@@ -4,6 +4,7 @@ import { fetchCampers } from "../../redux/campers/operations";
 import {
   selectCampers,
   selectIsLoading,
+  selectTotalCampers,
 } from "../../redux/campers/selectors";
 
 import CamperCard from "../CamperCard/CamperCard";
@@ -11,13 +12,14 @@ import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 
 import css from "./CamperList.module.css";
 
-
 const CamperList = () => {
   const dispatch = useDispatch();
   const campers = useSelector(selectCampers);
+  const totalCampers = useSelector(selectTotalCampers);
   const isLoading = useSelector(selectIsLoading);
 
   const loadMore = () => {
+    if (isLoading || campers.length >= totalCampers) return;
     const currentPage = Math.ceil(campers.length / 4) + 1;
     dispatch(fetchCampers({ page: currentPage, limit: 4 }));
   };
@@ -30,7 +32,7 @@ const CamperList = () => {
         ))}
       </ul>
 
-      {campers.length % 4 === 0 && campers.length > 0 && !isLoading && (
+      {!isLoading && campers.length < totalCampers && (
         <LoadMoreBtn onClick={loadMore} />
       )}
     </section>

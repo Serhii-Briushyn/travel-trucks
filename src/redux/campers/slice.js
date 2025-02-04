@@ -4,6 +4,7 @@ import { fetchCampers, fetchCamperById } from "./operations";
 const initialState = {
   campers: [],
   currentCamper: null,
+  totalCampers: null,
   isLoading: false,
   error: null,
 };
@@ -14,6 +15,7 @@ const campersSlice = createSlice({
   reducers: {
     resetCampers: (state) => {
       state.campers = [];
+      state.totalCampers = null;
     },
   },
   extraReducers: (builder) => {
@@ -24,6 +26,7 @@ const campersSlice = createSlice({
       })
       .addCase(fetchCampers.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.totalCampers = action.payload.total;
         const newCampers = action.payload.items.filter(
           (newCamper) =>
             !state.campers.some(
