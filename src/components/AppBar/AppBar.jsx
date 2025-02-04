@@ -6,8 +6,10 @@ import css from "./AppBar.module.css";
 const AppBar = () => {
   return (
     <header className={css.header}>
-      <Logo />
-      <Navigation />
+      <div className={css.container}>
+        <Logo />
+        <Navigation />
+      </div>
     </header>
   );
 };
