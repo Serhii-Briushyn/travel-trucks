@@ -24,7 +24,13 @@ const campersSlice = createSlice({
       })
       .addCase(fetchCampers.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.campers = [...state.campers, ...action.payload.items];
+        const newCampers = action.payload.items.filter(
+          (newCamper) =>
+            !state.campers.some(
+              (existingCamper) => existingCamper.id === newCamper.id
+            )
+        );
+        state.campers = [...state.campers, ...newCampers];
       })
       .addCase(fetchCampers.rejected, (state, action) => {
         state.isLoading = false;
